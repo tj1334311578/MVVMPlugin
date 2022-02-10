@@ -1,0 +1,25 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.at.mvvm</id>
+    <name>MVVMPlugin</name>
+    <vendor>androidTeam</vendor>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>org.jetbrains.kotlin</depends>
+<!--    <depends>com.intellij.modules.java</depends>-->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.at.mvvm.services.MyApplicationService"/>
+        <projectService serviceImplementation="com.at.mvvm.services.MyProjectService"/>
+    </extensions>
+
+    <applicationListeners>
+        <listener class="com.at.mvvm.listeners.MyProjectManagerListener"
+                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
+    </applicationListeners>
+
+    <extensions defaultExtensionNs="com.android.tools.idea.wizard.template">
+        <wizardTemplateProvider implementation="other.SamplePluginTemplateProviderImpl"/>
+    </extensions>
+</idea-plugin>
