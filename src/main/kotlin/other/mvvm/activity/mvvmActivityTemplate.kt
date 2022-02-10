@@ -1,4 +1,3 @@
-
 package other.mvvm.activity
 
 import com.android.tools.idea.wizard.template.*
@@ -15,7 +14,12 @@ val mvvmActivityTemplate
 
         category = Category.Other
         formFactor = FormFactor.Mobile
-        screens = listOf(WizardUiContext.ActivityGallery, WizardUiContext.MenuEntry, WizardUiContext.NewProject, WizardUiContext.NewModule)
+        screens = listOf(
+            WizardUiContext.ActivityGallery,
+            WizardUiContext.MenuEntry,
+            WizardUiContext.NewProject,
+            WizardUiContext.NewModule
+        )
 
         lateinit var layoutName: StringParameter
 
@@ -36,11 +40,28 @@ val mvvmActivityTemplate
 
         val packageName = defaultPackageNameParameter
 
+
+        val exitApi = booleanParameter {
+            name="存在api"
+            default=false
+            help="默认不勾选,如果repository需要网络api,则添加对应的类,否则不添加"
+        }
+
+        val apiClass: StringParameter = stringParameter {
+            name = "Api Name"
+            default = ""
+            visible={exitApi.value}
+            help = "只输入相关Api类名"
+            constraints = listOf(Constraint.CLASS)
+        }
         widgets(
             TextFieldWidget(activityClass),
             TextFieldWidget(layoutName),
             PackageNameWidget(packageName),
+            CheckBoxWidget(exitApi),
+            TextFieldWidget(apiClass)
         )
+
 //        thumb { File("logo.png") }
         recipe = { data: TemplateData ->
 
@@ -48,10 +69,15 @@ val mvvmActivityTemplate
                 data as ModuleTemplateData,
                 activityClass.value,
                 layoutName.value,
-                packageName.value)
+                packageName.value,
+                if (exitApi.value) {
+                    apiClass.value
+                } else {
+                    null
+                }
+            )
         }
     }
-
 
 
 val defaultPackageNameParameter

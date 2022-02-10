@@ -36,10 +36,26 @@ val mvvmFragmentTemplate
 
         val packageName = defaultPackageNameParameter
 
+        val exitApi= booleanParameter {
+            name="存在api"
+            help="默认不勾选,如果repository需要网络api,则添加对应的类,否则不添加"
+            default=false
+        }
+
+        val apiClass= stringParameter {
+            name = "Api Name"
+            default = ""
+            visible={exitApi.value}
+            help = "只输入相关Api类名"
+            constraints = listOf(Constraint.CLASS)
+        }
+
         widgets(
             TextFieldWidget(fragmentClass),
             TextFieldWidget(layoutName),
-            PackageNameWidget(packageName)
+            PackageNameWidget(packageName),
+            CheckBoxWidget(exitApi),
+            TextFieldWidget(apiClass)
         )
 //        thumb { File("logo.png") }
         recipe = { data: TemplateData ->
@@ -48,7 +64,12 @@ val mvvmFragmentTemplate
                 data as ModuleTemplateData,
                 fragmentClass.value,
                 layoutName.value,
-                packageName.value)
+                packageName.value,
+                if(exitApi.value){
+                    apiClass.value
+                }else{
+                    null
+                })
         }
     }
 

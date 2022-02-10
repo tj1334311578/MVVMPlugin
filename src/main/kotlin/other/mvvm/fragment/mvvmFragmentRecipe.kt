@@ -11,7 +11,8 @@ fun RecipeExecutor.mvvmFragmentRecipe(
     moduleData: ModuleTemplateData,
     fragmentClass: String,
     layoutName: String,
-    packageName: String
+    packageName: String,
+    apiClass: String?
 ) {
     val (projectData, srcOut, resOut) = moduleData
     val ktOrJavaExt = projectData.language.extension
@@ -35,5 +36,5 @@ fun RecipeExecutor.mvvmFragmentRecipe(
     // 保存viewmodel
     save(mvvmViewModel(packageName, fragmentClass), srcOut.resolve("${fragmentClass}ViewModel.${ktOrJavaExt}"))
     // 保存repository
-    save(mvvmRepository(packageName, fragmentClass), srcOut.resolve("${fragmentClass}Repository.${ktOrJavaExt}"))
+    save(mvvmRepository(packageName, fragmentClass,apiClass), srcOut.resolve("${fragmentClass}Repository.${ktOrJavaExt}"))
 }
