@@ -9,7 +9,7 @@ val mvvmFragmentTemplate
     get() = template {
 //        revision = 1
         name = "MVVM Fragment"
-        description = "适用于Fragment MVVM框架的Fragment"
+        description = "适用于MVVMPlugin框架的Fragment"
         minApi = MIN_API
 //        minBuildApi = MIN_API
 

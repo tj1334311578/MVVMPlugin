@@ -9,7 +9,7 @@ val mvvmActivityTemplate
     get() = template {
 //        revision = 1
         name = "MVVM Activity"
-        description = "适用于Kong MVVM框架的Activity"
+        description = "适用于MVVMPlugin框架的Activity"
         minApi = MIN_API
 //        minBuildApi = MIN_API
 

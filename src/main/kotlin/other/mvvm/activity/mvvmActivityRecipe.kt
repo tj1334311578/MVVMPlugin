@@ -32,7 +32,7 @@ fun RecipeExecutor.mvvmActivityRecipe(
     save(mvvmActivity, srcOut.resolve("${activityClass}Activity.${ktOrJavaExt}"))
     // 保存xml
     save(mvvmActivityXml(packageName, activityClass), resOut.resolve("layout/${layoutName}.xml"))
-    // 保存viewmodel
+    // 保存viewModel
     save(mvvmViewModel(packageName, activityClass), srcOut.resolve("${activityClass}ViewModel.${ktOrJavaExt}"))
     // 保存repository
     save(mvvmRepository(packageName, activityClass), srcOut.resolve("${activityClass}Repository.${ktOrJavaExt}"))
