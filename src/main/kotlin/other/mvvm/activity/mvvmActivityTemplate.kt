@@ -11,7 +11,6 @@ val mvvmActivityTemplate
         description = "适用于MVVMPlugin框架的Activity"
         minApi = MIN_API
 //        minBuildApi = MIN_API
-
         category = Category.Other
         formFactor = FormFactor.Mobile
         screens = listOf(
