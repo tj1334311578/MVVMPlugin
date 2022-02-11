@@ -41,24 +41,24 @@ val mvvmActivityTemplate
         val packageName = defaultPackageNameParameter
 
 
-        val exitApi = booleanParameter {
-            name="存在api"
-            default=false
-            help="默认不勾选,如果repository需要网络api,则添加对应的类,否则不添加"
+        val extraModel = booleanParameter {
+            name="存在model"
+            default=true
+            help="默认勾选,如何存在,则生成相对应的model以及repository,否则不生成"
         }
 
         val apiClass: StringParameter = stringParameter {
             name = "Api Name"
             default = ""
-            visible={exitApi.value}
-            help = "只输入相关Api类名"
-            constraints = listOf(Constraint.CLASS)
+            visible={extraModel.value}
+            help = "只输入相关model所需要的repository中的Api类名"
+            constraints = listOf(Constraint.CLASS,Constraint.UNIQUE,if (extraModel.value) Constraint.NONEMPTY else Constraint.VALUES)
         }
         widgets(
             TextFieldWidget(activityClass),
             TextFieldWidget(layoutName),
             PackageNameWidget(packageName),
-            CheckBoxWidget(exitApi),
+            CheckBoxWidget(extraModel),
             TextFieldWidget(apiClass)
         )
 
@@ -70,11 +70,8 @@ val mvvmActivityTemplate
                 activityClass.value,
                 layoutName.value,
                 packageName.value,
-                if (exitApi.value) {
-                    apiClass.value
-                } else {
-                    null
-                }
+                extraModel.value,
+                apiClass.value
             )
         }
     }

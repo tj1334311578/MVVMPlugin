@@ -12,6 +12,7 @@ fun RecipeExecutor.mvvmFragmentRecipe(
     fragmentClass: String,
     layoutName: String,
     packageName: String,
+    extraModel:Boolean,
     apiClass: String?
 ) {
     val (projectData, srcOut, resOut) = moduleData
@@ -28,13 +29,16 @@ fun RecipeExecutor.mvvmFragmentRecipe(
 //            useMaterial2 = false
 //    )
 
-    val mvvmActivity = mvvmFragmentKt(projectData.applicationPackage, fragmentClass, packageName)
+    val mvvmActivity = mvvmFragmentKt(projectData.applicationPackage, fragmentClass, packageName,extraModel)
     // 保存Activity
     save(mvvmActivity, srcOut.resolve("${fragmentClass}Fragment.${ktOrJavaExt}"))
     // 保存xml
     save(mvvmFragmentXml(packageName, fragmentClass), resOut.resolve("layout/${layoutName}.xml"))
-    // 保存viewmodel
-    save(mvvmViewModel(packageName, fragmentClass), srcOut.resolve("${fragmentClass}ViewModel.${ktOrJavaExt}"))
-    // 保存repository
-    save(mvvmRepository(packageName, fragmentClass,apiClass), srcOut.resolve("${fragmentClass}Repository.${ktOrJavaExt}"))
+    if (extraModel) {
+        // 保存viewmodel
+        save(mvvmViewModel(packageName, fragmentClass), srcOut.resolve("${fragmentClass}ViewModel.${ktOrJavaExt}"))
+        // 保存repository
+        save(mvvmRepository(packageName, fragmentClass,apiClass), srcOut.resolve("${fragmentClass}Repository.${ktOrJavaExt}"))
+    }
+
 }
